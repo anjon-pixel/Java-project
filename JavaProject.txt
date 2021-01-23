@@ -1,0 +1,216 @@
+package tic.tac.toe;
+import java.util.*;
+import java.awt.*;
+import javax.swing.*;
+import java.awt.event.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+public class TicTacToe implements ActionListener{
+    JFrame frame=new JFrame("TicTacToe");
+    Random random=new  Random();
+    JPanel panel_title=new JPanel();
+    JPanel panel_button=new  JPanel();
+    JLabel text_label=new JLabel();
+    JButton[] button=new JButton[9];
+    boolean player_check;
+  
+    TicTacToe(){
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(500,500);
+        frame.getContentPane().setBackground(Color.GRAY);
+        frame.setLayout(new BorderLayout());
+        frame.setVisible(true); 
+        text_label.setBackground(Color.gray);
+        text_label.setForeground(Color.RED);
+        text_label.setFont(new Font("Ink Free",Font.BOLD,60));
+        text_label.setHorizontalAlignment(JLabel.CENTER);
+        text_label.setText("Lets Play");
+        text_label.setOpaque(true);
+        panel_title.setLayout(new BorderLayout());
+        panel_title.setBounds(0,0,700,200);
+        panel_button.setLayout(new GridLayout(3,3));
+        panel_button.setBackground(Color.LIGHT_GRAY);
+        for(int i=0;i<9;i++){
+            button[i]=new JButton();
+            panel_button.add(button[i]);
+            button[i].setFont(new Font("",Font.BOLD,100));
+            button[i].setFocusable(false);
+            button[i].addActionListener(this);
+        }
+        panel_title.add(text_label);
+        frame.add(panel_title,BorderLayout.NORTH);
+        frame.add(panel_button);
+        FirstRandomSelection();
+    }   
+    @Override
+    public void actionPerformed(ActionEvent e){
+        for(int i=0;i<9;i++){
+            if(e.getSource()==button[i]){
+                if(player_check){
+                    if(button[i].getText()==""){
+                        button[i].setForeground(Color.blue);
+                        button[i].setText("X");
+                        player_check=false;
+                        text_label.setText("Player O");
+                        WinnerCheck();
+                       }
+                }else {
+                    if(button[i].getText()==""){
+                       button[i].setForeground(Color.orange);
+                        button[i].setText("O");
+                        player_check=true;
+                        text_label.setText("Player X");
+                        WinnerCheck();
+                    }
+                }
+            }
+        }   
+    }
+    
+public void FirstRandomSelection(){
+        try {
+            Thread.sleep(1500);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(TicTacToe.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         if(random.nextInt(2)==0){
+            player_check=true;
+            text_label.setText("Player X");
+        }else{
+            player_check=false;
+            text_label.setText("Player O");
+        }
+ }
+public void WinnerCheck(){
+    if( (button[0].getText()=="X")&&
+        (button[1].getText()=="X")&&
+        (button[2].getText()=="X")       
+        ){
+        Xwinner(0,1,2);
+    }else if((button[3].getText()=="X")&&
+             (button[4].getText()=="X")&&
+             (button[5].getText()=="X")       
+            ){
+        Xwinner(3,4,5);
+    }else if((button[6].getText()=="X")&&
+             (button[7].getText()=="X")&&
+             (button[8].getText()=="X")       
+            )
+    {
+        Xwinner(6,7,8);
+    }else if((button[0].getText()=="X")&&
+             (button[3].getText()=="X")&&
+             (button[6].getText()=="X")       
+            )
+    {
+        Xwinner(0,3,6);
+    }else if((button[0].getText()=="X")&&
+             (button[1].getText()=="X")&&
+             (button[2].getText()=="X")       
+            )
+    {
+        Xwinner(0,1,2);
+    }else if((button[1].getText()=="X")&&
+             (button[4].getText()=="X")&&
+             (button[7].getText()=="X")       
+            )
+    {
+        Xwinner(1,4,7);
+    }else if((button[2].getText()=="X")&&
+             (button[5].getText()=="X")&&
+             (button[8].getText()=="X")       
+            )
+    {
+        Xwinner(2,5,8);
+    }else if((button[0].getText()=="X")&&
+             (button[4].getText()=="X")&&
+             (button[8].getText()=="X")       
+            )
+    {
+        Xwinner(0,4,8);
+    }else if((button[2].getText()=="X")&&
+             (button[4].getText()=="X")&&
+             (button[6].getText()=="X")       
+            )
+    {
+        Xwinner(2,4,6);
+    }  
+    else if((button[0].getText()=="O")&&
+            (button[1].getText()=="O")&&
+            (button[2].getText()=="O")       
+           ){
+        Owinner(0,1,2);
+    }else if((button[3].getText()=="O")&&
+             (button[4].getText()=="O")&&
+             (button[5].getText()=="O")       
+            )
+    {
+        Owinner(3,4,5);
+    }else if((button[6].getText()=="O")&&
+             (button[7].getText()=="O")&&
+             (button[8].getText()=="O")       
+            )
+    {
+        Owinner(6,7,8);
+    }else if((button[0].getText()=="O")&&
+             (button[3].getText()=="O")&&
+             (button[6].getText()=="O")       
+            )
+    {
+        Owinner(0,3,6);
+    }else if((button[0].getText()=="O")&&
+             (button[1].getText()=="O")&&
+             (button[2].getText()=="O")       
+            )
+    {
+        Owinner(0,1,2);
+    }else if((button[1].getText()=="O")&&
+             (button[4].getText()=="O")&&
+             (button[7].getText()=="O")       
+            )
+    {
+        Owinner(1,4,7);
+    }else if((button[2].getText()=="O")&&
+             (button[5].getText()=="O")&&
+             (button[8].getText()=="O")       
+            )
+    {
+        Owinner(2,5,8);
+    }else if((button[0].getText()=="O")&&
+             (button[4].getText()=="O")&&
+             (button[8].getText()=="O")       
+            )
+    {
+        Owinner(0,4,8);
+    }else if((button[2].getText()=="O")&&
+             (button[4].getText()=="O")&&
+             (button[6].getText()=="O")       
+            )
+    {
+        Owinner(2,4,6);
+    }  
+  }   
+public void Xwinner(int a,int b,int c){
+    for(int i=0;i<9;i++){
+             button[i].setEnabled(false);
+          }text_label.setText("Winner X!");
+             button[a].setBackground(Color.BLUE);
+             button[b].setBackground(Color.BLUE);
+             button[c].setBackground(Color.BLUE);
+    }
+public void Owinner(int a,int b, int c){
+    for(int i=0;i<9;i++){
+            button[i].setEnabled(false);
+         } text_label.setText("Winner O!");
+            button[a].setBackground(Color.YELLOW);
+            button[b].setBackground(Color.YELLOW);
+            button[c].setBackground(Color.YELLOW);
+    }
+public static void main(String[]args){
+        TicTacToe c=new TicTacToe();
+    }
+}
+
+
+ 
